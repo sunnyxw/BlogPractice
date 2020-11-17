@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signInData:SignInData={username:"", email:""};
+  signInData:SignInData={name:"", email:""};
   displayUserName = ""
 
   openDialog(): void {
@@ -26,8 +26,14 @@ export class HeaderComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.signInData = result;
-      this.displayUserName = this.signInData.username;
+      if(result){
+          this.signInData = result;
+          console.log(result)
+          this.displayUserName = this.signInData.name;
+      }
+      else{
+        this.displayUserName = "Guest";
+      }
     });
   }
 

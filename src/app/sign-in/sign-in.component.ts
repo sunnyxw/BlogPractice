@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators, FormBuilder} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { ElementFinder } from 'protractor';
 import {SignInData} from './sign-in-data.model';
 
 
@@ -14,34 +13,27 @@ export class SignInComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<SignInComponent>,
-    @Inject(MAT_DIALOG_DATA) public signInData: SignInData) {}
+    @Inject(MAT_DIALOG_DATA) public signInData: SignInData,
+    private fb: FormBuilder) {dialogRef.disableClose = true;}
 
   ngOnInit(): void {}
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-  name = new FormControl('', [Validators.required]);
+  profileForm = this.fb.group({
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+  });
 
   getErrorMessageEmail() {
-    if (this.email.hasError('required')) {
+    if (this.profileForm.get('email').hasError('required')) {
       return 'You must enter a value';
     }
-    else if(this.email.hasError('email')){
+    else if(this.profileForm.get('email').hasError('email')){
       return 'Not a valid email';
     }
-  }
-
-  getErrorMessageName() {
-      return 'You must enter a name';
   }
 
   onNoClick(): void {
       this.dialogRef.close();
   }
 
-  /*onYesClick(){
-    if(this.email.hasError('required'||'email') || this.name.hasError('required')){
-      this.getErrorMessageEmail();
-      this.getErrorMessageName();
-    }
-  }*/
 }

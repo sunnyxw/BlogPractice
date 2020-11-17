@@ -1,4 +1,4 @@
 export interface SignInData {
-  username: string;
+  name: string;
   email: string;
 }
