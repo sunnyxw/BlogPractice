@@ -1,0 +1,22 @@
+<mat-toolbar>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span>Sparkling Pointer Blogs</span>
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button class="example-icon search-icon" aria-hidden="Example icon-button with search icon">
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with login icon"
+          (click) = "openDialog()"
+          *ngIf = "displayUserName.length<=0">
+      <mat-icon>login</mat-icon>
+    </button>
+
+    <p *ngIf = "displayUserName.length"> welcome! {{signInData.username}}</p>
+</mat-toolbar>
+
+<hr class="solid" style="color: black">

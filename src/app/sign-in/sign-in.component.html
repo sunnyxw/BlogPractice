@@ -1,0 +1,26 @@
+
+
+  <h1 mat-dialog-title>sign-in:</h1>
+  <p>
+    <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+        <mat-label>Enter Username</mat-label>
+        <input matInput #input maxlength="10" placeholder="SparklingP" [formControl]= "name" required [(ngModel)] = "signInData.username">
+        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+        <mat-error *ngIf= "name.invalid">{{getErrorMessageName()}}</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com" [formControl]= "email" required [(ngModel)]= "signInData.email">
+        <mat-error *ngIf= "email.invalid">{{getErrorMessageEmail()}}</mat-error>
+      </mat-form-field>
+  </p>
+
+  <div mat-dialog-actions>
+    <button mat-button (click) = "onNoClick()">Cancel</button>
+    <span class="example-spacer"></span>
+    <button mat-button cdkFocusInitial  mat-dialog-close>Confirm</button>
+  </div>
+
+
