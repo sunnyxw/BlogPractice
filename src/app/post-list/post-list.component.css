@@ -1,0 +1,8 @@
+.listDisplay{
+  margin-left: 56px;
+  width: 500px;
+}
+
+.postDisplay{
+  display:flex;
+}
