@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed!');
       if(result){
           this.signInData = result;
           this.displayUserName = this.signInData.name;
