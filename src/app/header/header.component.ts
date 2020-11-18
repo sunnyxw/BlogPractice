@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit {
   }
 
   signInData:SignInData={name:"", email:""};
-  displayUserName = ""
+  displayUserName = "";
+  isSignedIn:Boolean=false;
 
   openDialog(): void {
     const dialogRef = this.dialog.open(SignInComponent, {
@@ -28,11 +29,8 @@ export class HeaderComponent implements OnInit {
       console.log('The dialog was closed');
       if(result){
           this.signInData = result;
-          console.log(result)
           this.displayUserName = this.signInData.name;
-      }
-      else{
-        this.displayUserName = "Guest";
+          this.isSignedIn=true;
       }
     });
   }
