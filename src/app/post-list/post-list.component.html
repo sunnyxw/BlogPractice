@@ -1,0 +1,31 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+
+<div class="listDisplay">
+  <mat-list-item *ngFor = "let post of postList">
+    <div class = "postDisplay">
+        <div>
+            <div mat-line>
+                <img [src]= "post.autherIcon">
+                <p style="display: inline">{{post.author}}</p>
+            </div>
+
+            <div mat-line>
+                <h1>{{post.title}}</h1>
+                <p style="color:grey">{{post.subtitle}}</p>
+            </div>
+
+            <div mat-line>
+                <p style="white-space:nowrap">
+                    {{post.readTime + " |"}}
+                    {{post.date}}
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <img style="align-content: flex-end;" [src]= "post.postImage">
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</div>
