@@ -1,2 +1,11 @@
-<app-header></app-header>
-<app-post-list></app-post-list>
+<app-header  (sidenavToggle)= "sidenav.toggle()"></app-header>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side">
+      <app-side-nav></app-side-nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <app-post-list></app-post-list>
+    </mat-sidenav-content>
+</mat-sidenav-container>

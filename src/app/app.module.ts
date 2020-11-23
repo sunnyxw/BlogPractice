@@ -10,11 +10,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { PostListComponent } from './post-list/post-list.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 
 
 @NgModule({
@@ -22,7 +26,9 @@ import { PostListComponent } from './post-list/post-list.component';
     AppComponent,
     HeaderComponent,
     SignInComponent,
-    PostListComponent
+    PostListComponent,
+    SideNavComponent,
+    UserNavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +42,8 @@ import { PostListComponent } from './post-list/post-list.component';
     MatButtonModule,
     MatDialogModule,
     MatListModule,
+    MatMenuModule,
+    MatSidenavModule,
   ],
   entryComponents: [
     SignInComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SignInComponent } from '../sign-in/sign-in.component';
 import{ SignInData} from '../sign-in/sign-in-data.model';
@@ -10,10 +10,14 @@ import{ SignInData} from '../sign-in/sign-in-data.model';
 })
 export class HeaderComponent implements OnInit {
 
+  @Output() public sidenavToggle = new EventEmitter();
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
+
+
+
 
   signInData:SignInData={name:"", email:""};
   displayUserName = "";
@@ -33,6 +37,10 @@ export class HeaderComponent implements OnInit {
           this.isSignedIn=true;
       }
     });
+  }
+
+  public onToggleSidenav = ()=>{
+    this.sidenavToggle.emit();
   }
 
 }
