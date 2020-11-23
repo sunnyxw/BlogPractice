@@ -9,5 +9,6 @@ button {
 
 .mat-toolbar{
   background-color:white;
+  display:float;
+  margin-top:0;
 }
-
