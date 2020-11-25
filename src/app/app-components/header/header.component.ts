@@ -16,9 +16,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
-
-
   signInData:SignInData={name:"", email:""};
   displayUserName = "";
   isSignedIn:Boolean=false;
@@ -30,7 +27,7 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed!');
+      console.log('sign-in success!');
       if(result){
           this.signInData = result;
           this.displayUserName = this.signInData.name;

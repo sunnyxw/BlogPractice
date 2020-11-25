@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UpdateMyPostsService } from 'src/app/app-service/update-my-posts.service';
+import{ Post } from '../../app-model/post.model';
+import { Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-my-posts',
@@ -6,23 +9,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./my-posts.component.css']
 })
 export class MyPostsComponent implements OnInit {
+  myPosts:Post[]=[];
+  private myPostsSub: Subscription;
 
-  constructor() { }
+  constructor(public updateMyPostsService:UpdateMyPostsService) { }
+
 
   ngOnInit(): void {
+    this.myPosts = this.updateMyPostsService.getPosts();
+    this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
+      .subscribe((posts: Post[])=>{
+        this.myPosts = posts;
+      });
+      console.log("my-posts updated!")
   }
 
-    myPosts = [
-      {"title":"Diverse zero tolerance archive",
-      "subtitle":"envisioneer leading-edge content",
-      "content": "snonowheoiubnasoihnsi, onoihnesjkbsn, noisdnoigjhsoie"
-      },
 
-      {"title":"Organic needs-based Graphical User Interface",
-      "subtitle":"grow synergistic web-readiness",
-      "content": "snonowheoiubnasoihnsi, onoihnesjkbsn, noisdnoigjhsoie"
-    }
-    ]
-
+  ngOnDestroy(){
+    this.myPostsSub.unsubscribe();
+  }
 
 }
