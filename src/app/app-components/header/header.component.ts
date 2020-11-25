@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { SignInComponent } from '../sign-in/sign-in.component';
-import{ SignInData} from '../sign-in/sign-in-data.model';
+import{ SignInData} from '../../app-model/sign-in-data.model';
 
 @Component({
   selector: 'app-header',
