@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule} from '@angular/common/http';
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -24,8 +25,6 @@ import { UserNavbarComponent } from './app-components/user-navbar/user-navbar.co
 import { WriteNewPostComponent } from './app-components/write-new-post/write-new-post.component';
 import { PageNotFoundComponent } from './app-components/page-not-found/page-not-found.component';
 import { MyPostsComponent } from './app-components/my-posts/my-posts.component';
-
-import { UpdateMyPostsService } from './app-service/update-my-posts.service';
 
 
 @NgModule({
@@ -50,6 +49,7 @@ import { UpdateMyPostsService } from './app-service/update-my-posts.service';
       {path: '', redirectTo: '/home', pathMatch: 'full'},
       {path: '**', component: PageNotFoundComponent},
     ]),
+    HttpClientModule,
     MatToolbarModule,
     MatIconModule,
     MatFormFieldModule,

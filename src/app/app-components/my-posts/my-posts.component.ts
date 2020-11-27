@@ -16,14 +16,15 @@ export class MyPostsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.myPosts = this.updateMyPostsService.getPosts();
+    this.updateMyPostsService.getPosts();
     this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
       .subscribe((posts: Post[])=>{
         this.myPosts = posts;
+        console.log("this is from my-posts component:")
+        console.log(posts);
       });
-      console.log("my-posts updated!")
-  }
 
+  }
 
   ngOnDestroy(){
     this.myPostsSub.unsubscribe();
