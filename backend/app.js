@@ -4,9 +4,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const MyPost = require("./models/myPost");
 
-const dbName = "";
-const dbUserName = "";
-const password = "";
+const dbName = "BlogPractice";
+const dbUserName = "blogAdmin";
+const password = "6a78CyBm6gxQhAP5";
 
 mongoose.connect("mongodb+srv://"+ dbUserName +":"+ password + "@cluster0.isgvp.mongodb.net/"+ dbName +"?retryWrites=true&w=majority")
   .then(()=>{
@@ -25,7 +25,7 @@ app.use((req, res, next)=>
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requesed-With, Content-Type, Accept");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS")
   next();
-})
+});
 
 app.post("/api/my-posts",(req, res, next)=>{
   const myPost = new MyPost({
@@ -33,16 +33,13 @@ app.post("/api/my-posts",(req, res, next)=>{
     subtitle: req.body.subtitle,
     content: req.body.content,
   });
-  console.log("post from server:");
   myPost.save();
-  res.status(201).json({
-    message: "post added succesfully!"
-  });
+  res.status(201).json({message: "post added succesfully!"});
 });
 
 app.get("/api/my-posts",(req, res, next)=> {
     MyPost.find()
-      .then((documents) =>{
+      .then(documents =>{
         myPosts = documents
         res.status(200).json(
           {
@@ -51,6 +48,13 @@ app.get("/api/my-posts",(req, res, next)=> {
           }
         );
       });
-})
+});
+
+app.delete("/api/my-posts/:id", (req, res, next)=>{
+  MyPost.deleteOne({_id: req.params.id}).then(result=>{
+    console.log(result);
+    res.status(200).json({message: "post deleted!"});
+  });
+});
 
 module.exports=app;

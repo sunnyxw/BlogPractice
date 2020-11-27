@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UpdateMyPostsService } from 'src/app/app-service/update-my-posts.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { Subscription} from "rxjs";
-import { Post} from "../../app-model/post.model";
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-write-new-post',
@@ -18,7 +15,6 @@ export class WriteNewPostComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  private myPostsSub: Subscription;
 
   profileForm: FormGroup = this.fb.group({
     title: ['', Validators.required],
@@ -29,14 +25,6 @@ export class WriteNewPostComponent implements OnInit {
   submitNewPost(profileForm: FormGroup){
     console.log("new post submited!")
     this.updateMyPostsService.addPost(profileForm.value.title, profileForm.value.subtitle, profileForm.value.content);
-
-
-    this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
-    .subscribe((posts: Post[])=>{
-      console.log("this is from the write-new-post component:");
-      console.log(posts);
-    });
-
     this.router.navigate(['/my-posts']);
   }
 }

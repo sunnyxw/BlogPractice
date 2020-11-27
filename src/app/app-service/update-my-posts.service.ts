@@ -11,9 +11,7 @@ export class UpdateMyPostsService {
 
   constructor(private http: HttpClient) { }
 
-  private myPosts:Post[] = [
-
-  ];
+  private myPosts:Post[] = [];
 
   private myPostsUpdated = new Subject<Post[]>();
 
@@ -47,10 +45,15 @@ export class UpdateMyPostsService {
       .subscribe((resData) => {
         console.log(resData.message);
         this.myPosts.push(post);
-        console.log("this is from update-service>addPost:");
-        console.log(this.myPosts);
         this.myPostsUpdated.next([...this.myPosts]);
       });
+  }
 
+  deletePost(postId: string){
+    this.http.delete<{message: string}>("http://localhost:3000/api/my-posts/"+postId)
+      .subscribe((resData)=>{
+        console.log(resData.message);
+        this.getPosts();
+      });
   }
 }

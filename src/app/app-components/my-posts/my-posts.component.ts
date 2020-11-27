@@ -20,10 +20,11 @@ export class MyPostsComponent implements OnInit {
     this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
       .subscribe((posts: Post[])=>{
         this.myPosts = posts;
-        console.log("this is from my-posts component:")
-        console.log(posts);
       });
+  }
 
+  onDelete(postId:string){
+    this.updateMyPostsService.deletePost(postId);
   }
 
   ngOnDestroy(){
