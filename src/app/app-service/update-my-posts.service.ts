@@ -30,7 +30,6 @@ export class UpdateMyPostsService {
       }))
       .subscribe((myPostsRemapped)=>{
         this.myPosts = myPostsRemapped;
-        console.log(this.myPosts);
         this.myPostsUpdated.next([...this.myPosts]);
       });
   }

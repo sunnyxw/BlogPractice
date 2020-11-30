@@ -4,9 +4,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const MyPost = require("./models/myPost");
 
-const dbName = "BlogPractice";
-const dbUserName = "blogAdmin";
-const password = "6a78CyBm6gxQhAP5";
+const dbName = "";
+const dbUserName = "";
+const password = "";
 
 mongoose.connect("mongodb+srv://"+ dbUserName +":"+ password + "@cluster0.isgvp.mongodb.net/"+ dbName +"?retryWrites=true&w=majority")
   .then(()=>{
@@ -27,6 +27,7 @@ app.use((req, res, next)=>
   next();
 });
 
+//add post to database
 app.post("/api/my-posts",(req, res, next)=>{
   const myPost = new MyPost({
     title: req.body.title,
@@ -34,9 +35,12 @@ app.post("/api/my-posts",(req, res, next)=>{
     content: req.body.content,
   });
   myPost.save();
-  res.status(201).json({message: "post added succesfully!"});
+  res.status(201).json({
+    message: "post added succesfully!",
+    });
 });
 
+//get posts from database
 app.get("/api/my-posts",(req, res, next)=> {
     MyPost.find()
       .then(documents =>{
@@ -50,6 +54,7 @@ app.get("/api/my-posts",(req, res, next)=> {
       });
 });
 
+//delete post by id from database
 app.delete("/api/my-posts/:id", (req, res, next)=>{
   MyPost.deleteOne({_id: req.params.id}).then(result=>{
     console.log(result);
