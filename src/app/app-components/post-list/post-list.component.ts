@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import postList from '../../mock-data/mock.postList.json';
+import postList from '../../app-mock-data/mock.postList.json';
 
 @Component({
   selector: 'app-post-list',

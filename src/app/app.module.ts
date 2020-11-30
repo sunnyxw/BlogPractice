@@ -1,20 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule} from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { AppRoutes } from './app-route';
+import { AppMaterialModule} from './app-material-module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './app-components/header/header.component';
@@ -42,26 +33,9 @@ import { MyPostsComponent } from './app-components/my-posts/my-posts.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([
-      {path: 'home', component: PostListComponent},
-      {path: 'write-new-post', component: WriteNewPostComponent},
-      {path:'my-posts', component: MyPostsComponent},
-      {path: '', redirectTo: '/home', pathMatch: 'full'},
-      {path: '**', component: PageNotFoundComponent},
-    ]),
+    RouterModule.forRoot(AppRoutes),
     HttpClientModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatListModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatExpansionModule
+    AppMaterialModule,
   ],
   entryComponents: [
     SignInComponent,

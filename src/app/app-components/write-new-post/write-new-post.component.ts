@@ -23,7 +23,7 @@ export class WriteNewPostComponent implements OnInit {
   });
 
   submitNewPost(profileForm: FormGroup){
-    console.log("new post submited!")
+    console.log("new post submited!");
     this.updateMyPostsService.addPost(profileForm.value.title, profileForm.value.subtitle, profileForm.value.content);
     this.router.navigate(['/my-posts']);
   }

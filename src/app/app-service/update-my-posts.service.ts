@@ -30,6 +30,7 @@ export class UpdateMyPostsService {
       }))
       .subscribe((myPostsRemapped)=>{
         this.myPosts = myPostsRemapped;
+        console.log(this.myPosts);
         this.myPostsUpdated.next([...this.myPosts]);
       });
   }
@@ -39,13 +40,13 @@ export class UpdateMyPostsService {
   }
 
 
-  addPost(title:string, subtitle:string, content:string){
+addPost(title:string, subtitle:string, content:string){
     const post: Post={id: null, title:title, subtitle:subtitle, content:content};
-    this.http.post<{message: string}>("http://localhost:3000/api/my-posts", post)
+    this.http.post<{ message: string; }>("http://localhost:3000/api/my-posts", post)
       .subscribe((resData) => {
         console.log(resData.message);
         this.myPosts.push(post);
-        this.myPostsUpdated.next([...this.myPosts]);
+        //this.myPostsUpdated.next([...this.myPosts]);
       });
   }
 
