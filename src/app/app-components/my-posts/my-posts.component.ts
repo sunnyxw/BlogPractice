@@ -16,11 +16,11 @@ export class MyPostsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.updateMyPostsService.getPosts();
     this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
       .subscribe((posts: Post[])=>{
         this.myPosts = posts;
       });
+    this.updateMyPostsService.getPosts();
   }
 
   onDelete(postId:string){

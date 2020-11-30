@@ -35,9 +35,10 @@ app.post("/api/my-posts",(req, res, next)=>{
     content: req.body.content,
   });
   myPost.save();
+  console.log(myPost);
   res.status(201).json({
     message: "post added succesfully!",
-    });
+    postId: myPost._id})
 });
 
 //get posts from database
@@ -51,7 +52,11 @@ app.get("/api/my-posts",(req, res, next)=> {
             myPosts: myPosts
           }
         );
+      })
+      .catch(()=>{
+        console.log("get my-posts failed!")
       });
+
 });
 
 //delete post by id from database
