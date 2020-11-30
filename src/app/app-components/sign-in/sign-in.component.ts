@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormControl, Validators, FormBuilder} from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {SignInData} from './sign-in-data.model';
+import {SignInData} from '../../app-model/sign-in-data.model';
 
 
 @Component({

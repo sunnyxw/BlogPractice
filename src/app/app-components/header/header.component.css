@@ -12,3 +12,8 @@ button {
   display:float;
   margin-top:0;
 }
+
+hr{
+  margin-top: 0;
+  margin-bottom: 0;
+}

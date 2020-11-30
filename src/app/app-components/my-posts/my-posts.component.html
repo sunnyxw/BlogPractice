@@ -1,0 +1,21 @@
+<div class="listDisplay">
+  <h1>My Posts:</h1>
+  <mat-accordion multi="true" *ngIf = "myPosts.length>0">
+        <mat-expansion-panel *ngFor= "let post of myPosts">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{post.title}}</mat-panel-title>
+            <mat-panel-description>{{post.subtitle}}</mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <p>{{post.content}}</p>
+          <mat-action-row>
+                <button mat-button>
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-button (click) = "onDelete(post.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+  </mat-accordion>
+</div>

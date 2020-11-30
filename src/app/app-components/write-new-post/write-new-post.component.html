@@ -1,0 +1,29 @@
+<form [formGroup]= "profileForm" class="example-form" (submit)= "submitNewPost(profileForm)">
+    <mat-form-field class="example-full-width" >
+    <mat-label>Title</mat-label>
+    <input matInput formControlName= "title" required>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Subtitle</mat-label>
+    <input matInput formControlName= "subtitle">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Blog content</mat-label>
+    <textarea matInput formControlName= "content" required></textarea>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <span class="example-spacer"></span>
+    <button mat-stroked-button>Save</button>
+    <button mat-flat-button color="primary"
+      type="submit"
+      [disabled]= "!profileForm.valid"
+    >
+      Publish
+    </button>
+  </div>
+
+</form>
