@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule} from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
-import { AppRoutes } from './app-route';
+import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule} from './app-material-module';
 
 import { AppComponent } from './app.component';
@@ -33,7 +32,7 @@ import { MyPostsComponent } from './app-components/my-posts/my-posts.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(AppRoutes),
+    AppRoutingModule,
     HttpClientModule,
     AppMaterialModule,
   ],

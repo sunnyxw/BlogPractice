@@ -9,7 +9,7 @@
 
           <p>{{post.content}}</p>
           <mat-action-row>
-                <button mat-button>
+                <button mat-button [routerLink]= '["/edit", post.id]'>
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-button (click) = "onDelete(post.id)">
