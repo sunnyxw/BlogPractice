@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 const MyPost = require("./models/myPost");
 const myPost = require("./models/myPost");
 
-const dbName = "BlogPractice";
-const dbUserName = "blogAdmin";
-const password = "6a78CyBm6gxQhAP5";
+const dbName = "";
+const dbUserName = "";
+const password = "";
 
 mongoose.connect("mongodb+srv://"+ dbUserName +":"+ password + "@cluster0.isgvp.mongodb.net/"+ dbName +"?retryWrites=true&w=majority")
   .then(()=>{
