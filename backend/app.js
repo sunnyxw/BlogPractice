@@ -3,10 +3,11 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const MyPost = require("./models/myPost");
+const myPost = require("./models/myPost");
 
-const dbName = "";
-const dbUserName = "";
-const password = "";
+const dbName = "BlogPractice";
+const dbUserName = "blogAdmin";
+const password = "6a78CyBm6gxQhAP5";
 
 mongoose.connect("mongodb+srv://"+ dbUserName +":"+ password + "@cluster0.isgvp.mongodb.net/"+ dbName +"?retryWrites=true&w=majority")
   .then(()=>{
@@ -34,11 +35,12 @@ app.post("/api/my-posts",(req, res, next)=>{
     subtitle: req.body.subtitle,
     content: req.body.content,
   });
-  myPost.save();
-  console.log(myPost);
-  res.status(201).json({
+  myPost.save().then(createdPost=>{
+    res.status(201).json({
     message: "post added succesfully!",
-    postId: myPost._id})
+    postId: createdPost._id})
+  })
+  .catch(()=>{ res.status(500).json({ message: "add post failed!"})})
 });
 
 //get posts from database
@@ -54,17 +56,30 @@ app.get("/api/my-posts",(req, res, next)=> {
         );
       })
       .catch(()=>{
-        console.log("get my-posts failed!")
+        res.status(500).json({message: "get my-posts failed!"});
       });
 
+});
+
+//update edited post by id from database
+app.patch("/api/my-posts/:id", (req, res, next)=>{
+  MyPost.updateOne({_id: req.params.id}, req.body).then(result=>{
+    res.status(200).json({message: "post edited!"});
+  })
+  .catch(()=>{
+    res.status(500).json({message: "edit post failed!"});
+  })
 });
 
 //delete post by id from database
 app.delete("/api/my-posts/:id", (req, res, next)=>{
   MyPost.deleteOne({_id: req.params.id}).then(result=>{
-    console.log(result);
     res.status(200).json({message: "post deleted!"});
-  });
+  })
+  .catch(()=>{
+    res.status(500).json({ message: "delete post failed!"});
+  })
 });
+
 
 module.exports=app;
