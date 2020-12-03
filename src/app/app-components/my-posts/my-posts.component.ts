@@ -9,18 +9,19 @@ import { Subscription} from 'rxjs';
   styleUrls: ['./my-posts.component.css']
 })
 export class MyPostsComponent implements OnInit {
-  myPosts:Post[]=[];
+  myPosts:Post[];
   private myPostsSub: Subscription;
 
-  constructor(public updateMyPostsService:UpdateMyPostsService) { }
+  constructor(public updateMyPostsService:UpdateMyPostsService) {
+  }
 
 
   ngOnInit(): void {
+    this.updateMyPostsService.getPosts();
     this.myPostsSub = this.updateMyPostsService.getMyPostsUpdatedListener()
       .subscribe((posts: Post[])=>{
         this.myPosts = posts;
       });
-    this.updateMyPostsService.getPosts();
   }
 
   onDelete(postId:string){
