@@ -1,6 +1,6 @@
 <div class="listDisplay">
   <h1>My Posts:</h1>
-  <mat-accordion multi="true" *ngIf = "myPosts.length>0">
+  <mat-accordion multi="true" *ngIf = "myPosts">
         <mat-expansion-panel *ngFor= "let post of myPosts">
           <mat-expansion-panel-header>
             <mat-panel-title>{{post.title}}</mat-panel-title>

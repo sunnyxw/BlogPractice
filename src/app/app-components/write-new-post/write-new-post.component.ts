@@ -3,7 +3,9 @@ import { Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UpdateMyPostsService } from 'src/app/app-service/update-my-posts.service';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { Post } from 'src/app/app-model/post.model';
-
+import { _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
+import { title } from 'process';
+import{ map } from "rxjs/operators";
 
 @Component({
   selector: 'app-write-new-post',
@@ -25,12 +27,26 @@ export class WriteNewPostComponent implements OnInit {
     this.route.paramMap.subscribe((paramMap: ParamMap)=>{
       if(paramMap.has('postId')){
         this.mode = "edit";
-        this.postEdit = this.updateMyPostsService.findPostEdit(paramMap.get('postId'));
-        this.populatePost(this.postEdit);
+        const id = paramMap.get('postId')
+        const postLocal = this.updateMyPostsService.findPostLocal(id);
+        if (postLocal.id){
+          this.postEdit = postLocal;
+          this.populatePost(this.postEdit);
+        }
+        else{
+          this.updateMyPostsService.findPostDB(id)
+            .subscribe(resData =>{
+              this.postEdit={
+                id: resData._id,
+                title:resData.title,
+                subtitle:resData.subtitle,
+                content:resData.content
+              }
+              this.populatePost(this.postEdit);
+            })
+        }
       }
-      else{
-        this.mode = "create";
-      }
+      else{ this.mode = "create"; }
     })
   }
 
@@ -51,12 +67,23 @@ export class WriteNewPostComponent implements OnInit {
   onSavePost(myPostForm: FormGroup){
     if(this.mode === "create"){
         console.log("new post submitted!");
-        this.updateMyPostsService.addPost(myPostForm.value);
+        this.updateMyPostsService.addPost(myPostForm.value)
+        .subscribe((resData) => {
+          //newPost.id = resData.postId;
+          //this.myPosts.push(newPost);
+          //this.myPostsUpdated.next([...this.myPosts]);
+          console.log(resData.message);
+          this.router.navigate(['/my-posts']);
+        });
     }
     else{
       console.log("edit post submitted!");
-      this.updateMyPostsService.editPost(myPostForm.value, this.postEdit.id);
+      this.updateMyPostsService.editPost(myPostForm.value, this.postEdit.id)
+      .subscribe((resData)=> {
+        console.log(resData.message);
+        this.router.navigate(['/my-posts']);
+      });
     }
-    this.router.navigate(['/my-posts']);
   }
+
 }

@@ -37,29 +37,28 @@ export class UpdateMyPostsService {
   }
 
   addPost(newPost: Post){
-    this.http.post<{ message: string; postId: string}>("http://localhost:3000/api/my-posts", newPost)
-      .subscribe((resData) => {
-        console.log(resData.message);
-       // post.id = resData.postId;
-        //this.myPosts.push(post);
-      });
+    return this.http.post<{message: string, postId: string}>("http://localhost:3000/api/my-posts", newPost)
   }
 
-  findPostEdit(id:string){
+  findPostLocal(id:string){
      return {...this.myPosts.find(post => post.id === id)};
+  }
+
+  // thinking about how to write it correctly...
+  findPostDB(id:string){
+    return this.http.get<{_id:string, title:string, subtitle:string, content:string}>("http://localhost:3000/api/my-posts/"+id)
   }
 
   editPost(postEdit:Post, id:string){
     postEdit.id = id;
-    this.http.patch<{message: string}>("http://localhost:3000/api/my-posts/"+id, postEdit)
-      .subscribe((resData)=> console.log(resData.message));
+    return this.http.patch<{message: string}>("http://localhost:3000/api/my-posts/"+id, postEdit)
   }
 
-  deletePost(postId: string){
-    this.http.delete<{message: string}>("http://localhost:3000/api/my-posts/"+postId)
+  deletePost(id: string){
+    this.http.delete<{message: string}>("http://localhost:3000/api/my-posts/"+id)
       .subscribe((resData)=>{
         console.log(resData.message);
-        this.myPosts = this.myPosts.filter(post => post.id != postId);
+        this.myPosts = this.myPosts.filter(post => post.id != id);
         this.myPostsUpdated.next([...this.myPosts]);
       });
   }

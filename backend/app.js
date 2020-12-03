@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const MyPost = require("./models/myPost");
-const myPost = require("./models/myPost");
 
 const dbName = "";
 const dbUserName = "";
@@ -43,15 +42,14 @@ app.post("/api/my-posts",(req, res, next)=>{
   .catch(()=>{ res.status(500).json({ message: "add post failed!"})})
 });
 
-//get posts from database
+//get all posts from database
 app.get("/api/my-posts",(req, res, next)=> {
     MyPost.find()
       .then(documents =>{
-        myPosts = documents
         res.status(200).json(
           {
             message: "my-posts fetched successfully!",
-            myPosts: myPosts
+            myPosts: documents
           }
         );
       })
@@ -61,7 +59,20 @@ app.get("/api/my-posts",(req, res, next)=> {
 
 });
 
-//update edited post by id from database
+//get post by id from database
+app.get("/api/my-posts/:id", (req, res, next)=>{
+  MyPost.findById({_id: req.params.id}).then(post=>{
+    if(post){
+      res.status(200).json(post)
+    }
+    else{
+      res.status(404).json({ message: "post not found!"})
+    }
+  })
+});
+
+
+//update post by id from database
 app.patch("/api/my-posts/:id", (req, res, next)=>{
   MyPost.updateOne({_id: req.params.id}, req.body).then(result=>{
     res.status(200).json({message: "post edited!"});
