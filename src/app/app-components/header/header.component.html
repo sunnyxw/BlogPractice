@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar class="mat-elevation-z2">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
             (click)= "onToggleSidenav()">
       <mat-icon>menu</mat-icon>
@@ -15,20 +15,19 @@
 
     <button mat-icon-button class="login-icon" aria-label="icon-button with login icon"
           (click) = "openDialog()"
-          *ngIf = "!isSignedIn">
+          *ngIf = "!authStatus">
       <mat-icon > login </mat-icon>
     </button>
 
     <button mat-icon-button class="profile-icon" aria-hidden="icon-button with profile icon"
-              *ngIf = "isSignedIn"
+              *ngIf = "authStatus"
               [matMenuTriggerFor]= "profile">
         <mat-icon>face</mat-icon>
     </button>
     <mat-menu #profile="matMenu">
       <app-user-navbar></app-user-navbar>
     </mat-menu>
-
 </mat-toolbar>
 
-<hr class="solid" style="color: black">
+
 

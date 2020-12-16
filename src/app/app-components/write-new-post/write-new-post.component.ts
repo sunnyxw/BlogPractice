@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { UpdateMyPostsService } from 'src/app/app-service/update-my-posts.service';
-import { Router, ActivatedRoute, ParamMap} from '@angular/router';
+import { ActivatedRoute, ParamMap} from '@angular/router';
 import { Post } from 'src/app/app-model/post.model';
-import { _DisposeViewRepeaterStrategy } from '@angular/cdk/collections';
-import { title } from 'process';
-import{ map } from "rxjs/operators";
 
 @Component({
   selector: 'app-write-new-post',
@@ -20,7 +17,6 @@ export class WriteNewPostComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               public updateMyPostsService: UpdateMyPostsService,
-              private router: Router,
               public route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -64,26 +60,14 @@ export class WriteNewPostComponent implements OnInit {
     })
   }
 
-  onSavePost(myPostForm: FormGroup){
+  onSavePost(){
     if(this.mode === "create"){
         console.log("new post submitted!");
-        this.updateMyPostsService.addPost(myPostForm.value)
-        .subscribe((resData) => {
-          //newPost.id = resData.postId;
-          //this.myPosts.push(newPost);
-          //this.myPostsUpdated.next([...this.myPosts]);
-          console.log(resData.message);
-          this.router.navigate(['/my-posts']);
-        });
+        this.updateMyPostsService.addPost(this.myPostForm.value);
     }
     else{
       console.log("edit post submitted!");
-      this.updateMyPostsService.editPost(myPostForm.value, this.postEdit.id)
-      .subscribe((resData)=> {
-        console.log(resData.message);
-        this.router.navigate(['/my-posts']);
-      });
+      this.updateMyPostsService.editPost(this.myPostForm.value, this.postEdit.id);
     }
   }
-
 }

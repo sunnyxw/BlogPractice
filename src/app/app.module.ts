@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule} from './app-material-module';
 
+//auth-intercept service:
+import { AuthInterceptor } from './app-service/auth-interceptor';
+
+//components:
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './app-components/header/header.component';
 import { SignInComponent } from './app-components/sign-in/sign-in.component';
@@ -15,6 +19,7 @@ import { UserNavbarComponent } from './app-components/user-navbar/user-navbar.co
 import { WriteNewPostComponent } from './app-components/write-new-post/write-new-post.component';
 import { PageNotFoundComponent } from './app-components/page-not-found/page-not-found.component';
 import { MyPostsComponent } from './app-components/my-posts/my-posts.component';
+
 
 
 @NgModule({
@@ -37,9 +42,16 @@ import { MyPostsComponent } from './app-components/my-posts/my-posts.component';
     AppMaterialModule,
   ],
   entryComponents: [
-    SignInComponent,
+    //mat-dialog-ref pop-up:
+    SignInComponent
   ],
-  providers: [],
+  providers: [{
+    //auth-intercept service:
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    //don't overwrite existing ones:
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

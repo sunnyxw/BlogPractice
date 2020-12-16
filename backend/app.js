@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const MyPost = require("./models/myPost");
+const postsRoutes = require("./routes/posts");
+const userRoutes = require('./routes/user');
 
 const dbName = "";
 const dbUserName = "";
@@ -22,75 +23,12 @@ app.use(bodyParser.json());
 app.use((req, res, next)=>
 {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requesed-With, Content-Type, Accept");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requesed-With, Content-Type, Accept, Authorization");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PATCH, OPTIONS")
   next();
 });
 
-//add post to database
-app.post("/api/my-posts",(req, res, next)=>{
-  const myPost = new MyPost({
-    title: req.body.title,
-    subtitle: req.body.subtitle,
-    content: req.body.content,
-  });
-  myPost.save().then(createdPost=>{
-    res.status(201).json({
-    message: "post added succesfully!",
-    postId: createdPost._id})
-  })
-  .catch(()=>{ res.status(500).json({ message: "add post failed!"})})
-});
-
-//get all posts from database
-app.get("/api/my-posts",(req, res, next)=> {
-    MyPost.find()
-      .then(documents =>{
-        res.status(200).json(
-          {
-            message: "my-posts fetched successfully!",
-            myPosts: documents
-          }
-        );
-      })
-      .catch(()=>{
-        res.status(500).json({message: "get my-posts failed!"});
-      });
-
-});
-
-//get post by id from database
-app.get("/api/my-posts/:id", (req, res, next)=>{
-  MyPost.findById({_id: req.params.id}).then(post=>{
-    if(post){
-      res.status(200).json(post)
-    }
-    else{
-      res.status(404).json({ message: "post not found!"})
-    }
-  })
-});
-
-
-//update post by id from database
-app.patch("/api/my-posts/:id", (req, res, next)=>{
-  MyPost.updateOne({_id: req.params.id}, req.body).then(result=>{
-    res.status(200).json({message: "post edited!"});
-  })
-  .catch(()=>{
-    res.status(500).json({message: "edit post failed!"});
-  })
-});
-
-//delete post by id from database
-app.delete("/api/my-posts/:id", (req, res, next)=>{
-  MyPost.deleteOne({_id: req.params.id}).then(result=>{
-    res.status(200).json({message: "post deleted!"});
-  })
-  .catch(()=>{
-    res.status(500).json({ message: "delete post failed!"});
-  })
-});
-
+app.use("/api/my-posts", postsRoutes)
+app.use("/api/user", userRoutes)
 
 module.exports=app;
