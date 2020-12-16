@@ -8,7 +8,7 @@
           </mat-expansion-panel-header>
 
           <p>{{post.content}}</p>
-          <mat-action-row>
+          <mat-action-row *ngIf= "authStatus">
                 <button mat-button [routerLink]= '["/edit", post.id]'>
                   <mat-icon>edit</mat-icon>
                 </button>

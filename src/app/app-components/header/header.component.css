@@ -9,11 +9,15 @@ button {
 
 .mat-toolbar{
   background-color:white;
-  display:float;
-  margin-top:0;
+  top:0;
+  position: fixed;
+  border-bottom: 1px, black;
+  z-index: 2;
 }
 
-hr{
-  margin-top: 0;
+.hr{
+  top: 0;
   margin-bottom: 0;
+  position: fixed;
+  color: black
 }

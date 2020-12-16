@@ -1,3 +1,29 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+
+.signUpLine,
+.signInLine{
+  margin-top: 3em;
+  color: gray;
+  font-size:12px;
+}
+
+.signUpLink,
+.signInLink{
+  color: blue;
+  text-decoration:underline;
+}
+
+.mat-hint{
+  margin-left: 1rem;
+}
+
+.clickLink{
+  border: None;
+  background-color: white;
+}
+
+.mat-form-field{
+  width: 228px !important;
+}

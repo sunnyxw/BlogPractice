@@ -1,11 +1,45 @@
-
-<form [formGroup]= "profileForm">
+<form *ngIf= "authChoice == 'signIn'" [formGroup]= "profileForm">
   <h1 mat-dialog-title>sign-in:</h1>
+  <p>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter your name</mat-label>
+        <input matInput placeholder="SparklingP" formControlName= "name" required>
+    </mat-form-field>
+  </p>
+  <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput placeholder="your password" [type]= "showPwd? 'text':'password'" formControlName= "password" required>
+        <mat-icon matSuffix (click)= "showPwd = !showPwd"> {{showPwd ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </mat-form-field>
+  </p>
+  <mat-error *ngIf = "authErrMsg"> sign-in failed! please try again.</mat-error>
+  <div mat-dialog-actions>
+    <button mat-button (click) = "onCancel()">Cancel</button>
+    <span class="example-spacer"></span>
+    <button mat-flat-button color="primary"  (click)= "onSignIn()" [disabled]= "!profileForm.valid" >Submit</button>
+  </div>
+  <p class= "signUpLine">Don't have an account?
+      <button class="clickLink" type="button" (click)= "onClickSignUp()">
+        <a class = "signUpLink">SignUp</a>
+      </button>
+  </p>
+</form>
+
+<form *ngIf= "authChoice=='signUp'" [formGroup]= "profileForm">
+  <h1 mat-dialog-title>sign-up:</h1>
   <p>
     <mat-form-field hintLabel="Max 10 characters" appearance="fill">
         <mat-label>Enter your name</mat-label>
         <input matInput #name maxlength="10" placeholder="SparklingP" formControlName= "name" required>
         <mat-hint align="end">{{name.value?.length || 0}}/10</mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput #password placeholder="your password" [type]= "showPwd? 'text':'password'" formControlName= "password" required>
+      <mat-icon matSuffix (click)= "showPwd = !showPwd"> {{showPwd ? 'visibility' : 'visibility_off'}}</mat-icon>
     </mat-form-field>
   </p>
   <p>
@@ -15,11 +49,16 @@
         <mat-error *ngIf= "profileForm.get('email').invalid">{{getErrorMessageEmail()}}</mat-error>
       </mat-form-field>
   </p>
-
+  <mat-error *ngIf = "authErrMsg"> sign-up failed! please try again.</mat-error>
   <div mat-dialog-actions>
-    <button mat-button (click) = "onNoClick()">Cancel</button>
+    <button mat-button (click) = "onCancel()">Cancel</button>
     <span class="example-spacer"></span>
-    <button mat-flat-button color="primary"  type="submit" [disabled]= "!profileForm.valid" [mat-dialog-close]= "profileForm.value">Submit</button>
+    <button mat-flat-button color="primary" [disabled]= "!profileForm.valid" (click)= "onSignUp()">Submit</button>
   </div>
-</form>
 
+  <p class= "signInLine">Already have an account?
+    <button class="clickLink" type="button" (click)= "onClickSignIn()">
+      <a class = "signInLink" > SignIn</a>
+    </button>
+  </p>
+</form>

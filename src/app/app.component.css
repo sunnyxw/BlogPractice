@@ -1,4 +1,6 @@
 .mat-sidenav-container{
+  margin-top: 64px;
   margin-bottom: 0;
   background-color:white;
+  height: 100%;
 }
