@@ -2,9 +2,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const postsRoutes = require("./routes/posts");
+const postsRoutes = require("./routes/my-posts");
 const userRoutes = require('./routes/user');
 
+//fill in the mongoDB info: DBName, DBUserName, and DBUserPassword:
 const dbName = "";
 const dbUserName = "";
 const password = "";
