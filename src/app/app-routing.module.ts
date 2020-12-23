@@ -10,7 +10,7 @@ const AppRoutes: Routes=[
   {path: 'home', component: PostListComponent},
   {path: 'write-new-post', component: WriteNewPostComponent, canActivate:[AuthGuard]},
   {path: 'edit/:postId', component: WriteNewPostComponent, canActivate:[AuthGuard]},
-  {path:'my-posts',component: MyPostsComponent}, //todo: add AuthGuard
+  {path:'my-posts',component: MyPostsComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', component: PageNotFoundComponent},
 ];

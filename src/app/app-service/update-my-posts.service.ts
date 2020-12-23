@@ -29,6 +29,7 @@ export class UpdateMyPostsService {
             title: post.title,
             subtitle: post.subtitle,
             content: post.content,
+            creator: post.creator,
             id: post._id
           };
         });
@@ -51,17 +52,21 @@ export class UpdateMyPostsService {
     });
   }
 
-  //find post by id in local storage
+  //find post by id in local
+  //used when edit existing post, loading
   findPostLocal(id:string){
      return {...this.myPosts.find(post => post.id === id)};
   }
 
   //find post by id in DB
+  //used when edit existing post, loading
+  //survive reloading app
   findPostDB(id:string){
-    return this.http.get<{_id:string, title:string, subtitle:string, content:string}>("http://localhost:3000/api/my-posts/"+id)
+    return this.http.get<{_id:string, title:string, subtitle:string, content:string, creator: string}>("http://localhost:3000/api/my-posts/"+id)
   }
 
   //edit post by id in DB
+  //used to save editted to DB
   editPost(postEdit:Post, id:string){
     postEdit.id = id;
     this.http.patch<{message: string}>("http://localhost:3000/api/my-posts/"+id, postEdit)

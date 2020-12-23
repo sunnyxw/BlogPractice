@@ -36,7 +36,8 @@ export class WriteNewPostComponent implements OnInit {
                 id: resData._id,
                 title:resData.title,
                 subtitle:resData.subtitle,
-                content:resData.content
+                content:resData.content,
+                creator:resData.creator
               }
               this.populatePost(this.postEdit);
             })
